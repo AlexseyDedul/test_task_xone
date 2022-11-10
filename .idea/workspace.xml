@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf3f6fbf-ec32-4004-b8ab-3ed208fc1299" name="Changes" comment="" />
+    <list default="true" id="bf3f6fbf-ec32-4004-b8ab-3ed208fc1299" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_task/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/.env-example" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/test_task/.env-example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/.idea/test_task.iml" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/.idea/test_task.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/my_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/my_app/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/my_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/my_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/my_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/my_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_task/test_task/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_task/test_task/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,9 +33,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/alexsey/test_task_xone/test_task"
+    "last_opened_file_path": "/home/alex/test_task_xone/test_task"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test_task/test_task" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,5 +51,16 @@
       <updated>1668073822718</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,13 +1,14 @@
 import decimal
 
 from rest_framework import viewsets, status
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from .models import UserProfile, Transaction, Category
 from .permission import IsOwnerProfileOrReadOnly
-from .serializers import UserProfileSerializer, TransactionSerializer, CategorySerializer
+from .serializers import UserProfileSerializer, TransactionSerializer, CategorySerializer, StatisticSerializer
 
 
 class UserProfileListCreateView(ListCreateAPIView):
@@ -26,7 +27,7 @@ class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
 
 
-class TransactionViewList(viewsets.ModelViewSet):
+class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsAuthenticated]
@@ -72,8 +73,38 @@ class TransactionViewList(viewsets.ModelViewSet):
         user_profile = UserProfile.objects.get(user=self.request.user)
         return user_profile.transaction
 
+    @action(detail=True, methods=['get'], url_path='sort_by/(?P<str_field>[^/.]+)')
+    def sort(self, request, pk=None, str_field=None):
+        match str(pk):
+            case "0":
+                transactions = self.get_queryset().order_by(f'{str_field}')
+            case "1":
+                transactions = self.get_queryset().order_by(f'-{str_field}')
+            case _:
+                transactions = self.get_queryset()
+        serializer = self.get_serializer(transactions, many=True)
+        return Response(serializer.data)
 
-class CategoryViewList(viewsets.ModelViewSet):
+    @action(detail=True, methods=['get'], url_path='filter_by/(?P<str_field>[^/.]+)')
+    def filter(self, request, pk=None, str_field=None):
+        try:
+            match str(str_field):
+                case "date":
+                    transactions = self.get_queryset().filter(date=pk)
+                case "time":
+                    transactions = self.get_queryset().filter(time=pk)
+                case "sum":
+                    # фильтрация только по целой части и по вхождениям
+                    transactions = self.get_queryset().filter(sum__contains=pk)
+                case _:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+            serializer = self.get_serializer(transactions, many=True)
+            return Response(serializer.data)
+        except:
+            return Response({'Parameters are not valid.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
@@ -92,6 +123,16 @@ class CategoryViewList(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def get_queryset(self):
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        return user_profile.category
+
+
+class StatisticViewList(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = StatisticSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user_profile = UserProfile.objects.get(user=self.request.user)

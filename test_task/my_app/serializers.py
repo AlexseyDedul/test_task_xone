@@ -38,3 +38,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
         read_only_fields = ['balance_profile']
+
+
+class StatisticSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    category = CategorySerializer(many=True)
+    transaction = TransactionSerializer(many=True)
+
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+        read_only_fields = ['balance_profile']
