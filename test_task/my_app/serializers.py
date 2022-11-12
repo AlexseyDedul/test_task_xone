@@ -32,7 +32,6 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    # category = CategorySerializer(many=True)
 
     class Meta:
         model = UserProfile
@@ -40,12 +39,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ['balance_profile']
 
 
-class StatisticSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    category = CategorySerializer(many=True)
+class StatisticSerializer(UserProfileSerializer):
+    # category = CategorySerializer(many=True)
     transaction = TransactionSerializer(many=True)
 
     class Meta:
         model = UserProfile
-        fields = '__all__'
-        read_only_fields = ['balance_profile']
+        fields = ['user', 'transaction', 'balance_profile']

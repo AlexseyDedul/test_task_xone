@@ -1,15 +1,15 @@
-version: "3.8"
+version: "3.10"
 
 services:
   web:
     build: ./test_task
     command: python3 manage.py runserver 0.0.0.0:8000
     env_file:
-      ./test_task/test_task/.env
+      - ./test_task/test_task/.env
     ports:
       - 8000:8000
 
-  db:
+  db_xone:
     image: postgres:12.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -22,9 +22,23 @@ services:
     image: redis
     restart: always
 
+  worker:
+    build: ./test_task
+    env_file:
+      - ./test_task/test_task/.env
+    command: [ 'celery', '--workdir=./', '-A', 'test_task', 'worker' ]
+    depends_on:
+      - db_xone
+      - redis
+
   celery_beat:
     build: ./test_task
+    env_file:
+      - ./test_task/test_task/.env
     command: celery -A test_task beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - db_xone
+      - redis
 
 volumes:
   postgres_data:

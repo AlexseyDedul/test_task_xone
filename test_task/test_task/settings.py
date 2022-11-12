@@ -148,6 +148,8 @@ EMAIL_PORT = os.environ.get("EMAIL_PORT", "465")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "email")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "password")
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = False
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -133,7 +133,3 @@ class StatisticViewList(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = StatisticSerializer
     permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user_profile = UserProfile.objects.get(user=self.request.user)
-        return user_profile.category

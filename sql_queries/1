@@ -1,0 +1,5 @@
+select nb.id, nb.title, count(nb.title) as count_brand
+from public.notebooks_brand nb
+left join public.notebooks_notebook nn on nn.brand_id = nb.id
+group by nb.id, nb.title
+order by count_brand desc
